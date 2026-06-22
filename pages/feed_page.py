@@ -24,7 +24,7 @@ class FeedPage(BasePage):
     def click_first_order_in_feed(self):
         """Кликнуть по первому заказу в ленте"""
         order_link = self.find_clickable_element(FeedPageLocators.FEED_ORDER_ITEM_LINK)
-        self.driver.execute_script("arguments[0].click();", order_link)
+        self.js_click(order_link)
 
     @allure.step("Проверить, что открыта модалка заказа")
     def is_order_modal_opened(self):
@@ -35,7 +35,7 @@ class FeedPage(BasePage):
     def close_order_modal(self):
         """Закрыть модалку заказа"""
         close_btn = self.find_clickable_element(FeedPageLocators.ORDER_MODAL_CLOSE_BTN)
-        self.driver.execute_script("arguments[0].click();", close_btn)
+        self.js_click(close_btn)
         self.wait_for_element_invisible(FeedPageLocators.ORDER_ITEM_MODAL)
 
     @allure.step("Получить значение счётчика «Выполнено за все время»")
@@ -53,7 +53,7 @@ class FeedPage(BasePage):
     @allure.step("Получить список номеров заказов в разделе «В работе»")
     def get_orders_in_work(self):
         """Получить список номеров заказов в разделе 'В работе'"""
-        orders = self.driver.find_elements(*FeedPageLocators.ORDERS_IN_WORK_ITEM)
+        orders = self.find_elements(FeedPageLocators.ORDERS_IN_WORK_ITEM)
         return [self.normalize_order_number(order.text) for order in orders]
 
     @allure.step("Дождаться появления заказа в разделе «В работе»")
@@ -68,7 +68,7 @@ class FeedPage(BasePage):
     def _collect_visible_feed_numbers(self):
         """Собрать номера заказов из текущих элементов ленты"""
         numbers = set()
-        for order in self.driver.find_elements(*FeedPageLocators.FEED_ORDER_ITEM):
+        for order in self.find_elements(FeedPageLocators.FEED_ORDER_ITEM):
             try:
                 number_element = order.find_element(*FeedPageLocators.FEED_ORDER_NUMBER)
                 numbers.add(self.normalize_order_number(number_element.text))
@@ -82,14 +82,14 @@ class FeedPage(BasePage):
         all_numbers = set()
         previous_count = -1
 
-        self.driver.execute_script("arguments[0].scrollTop = 0;", feed_list)
+        self.execute_script("arguments[0].scrollTop = 0;", feed_list)
 
         while True:
             all_numbers.update(self._collect_visible_feed_numbers())
             if len(all_numbers) == previous_count:
                 break
             previous_count = len(all_numbers)
-            self.driver.execute_script(
+            self.execute_script(
                 "arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].clientHeight;",
                 feed_list,
             )

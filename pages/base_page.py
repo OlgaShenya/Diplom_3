@@ -67,3 +67,20 @@ class BasePage:
             return True
         except TimeoutException:
             return False
+        
+    def find_elements(self, locator, timeout=None):
+        """Найти все элементы по локатору (с ожиданием появления хотя бы одного)"""
+        try:
+            # Ждем появления первого элемента, чтобы не возвращать пустой список сразу
+            self._get_wait(timeout).until(EC.presence_of_element_located(locator))
+        except TimeoutException:
+            pass
+        return self.driver.find_elements(*locator)
+
+    def execute_script(self, script, *args):
+        """Выполнить произвольный JavaScript код"""
+        return self.driver.execute_script(script, *args)
+
+    def js_click(self, element):
+        """Кликнуть по элементу через JavaScript (обход перекрытий)"""
+        self.driver.execute_script("arguments[0].click();", element)
