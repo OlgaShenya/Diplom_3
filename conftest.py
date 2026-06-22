@@ -33,7 +33,6 @@ def driver(request):
         service = FirefoxService(GeckoDriverManager().install())
         driver = webdriver.Firefox(service=service, options=options)
     
-    driver.implicitly_wait(10)
     yield driver
     driver.quit()
 
