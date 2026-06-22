@@ -15,7 +15,6 @@ class PersonalAccountPage(BasePage):
         """Кликнуть по разделу 'Профиль'"""
         profile_link = self.find_visible_element(PersonalAccountLocators.PROFILE_LINK)
         self.driver.execute_script("arguments[0].click();", profile_link)
-        return self
 
     @allure.step("Проверить, что открыта страница профиля")
     def is_profile_page_opened(self):
@@ -29,7 +28,6 @@ class PersonalAccountPage(BasePage):
         # Кликаем через JavaScript, чтобы обойти возможный overlay
         order_history_link = self.find_visible_element(PersonalAccountLocators.ORDER_HISTORY)
         self.driver.execute_script("arguments[0].click();", order_history_link)
-        return self
 
     @allure.step("Проверить, что открыта страница истории заказов")
     def is_order_history_page_opened(self):
@@ -42,7 +40,6 @@ class PersonalAccountPage(BasePage):
         """Кликнуть по кнопке 'Выход'"""
         quit_btn = self.find_visible_element(PersonalAccountLocators.QUIT)
         self.driver.execute_script("arguments[0].click();", quit_btn)
-        return self
 
     @allure.step("Получить номер последнего заказа из истории")
     def get_last_order_number(self):

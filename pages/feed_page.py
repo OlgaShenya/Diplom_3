@@ -19,14 +19,12 @@ class FeedPage(BasePage):
     def wait_for_page_load(self):
         """Дождаться загрузки страницы ленты заказов"""
         self.find_visible_element(FeedPageLocators.FEED_PAGE_TITLE)
-        return self
 
     @allure.step("Кликнуть по первому заказу в ленте")
     def click_first_order_in_feed(self):
         """Кликнуть по первому заказу в ленте"""
         order_link = self.find_clickable_element(FeedPageLocators.FEED_ORDER_ITEM_LINK)
         self.driver.execute_script("arguments[0].click();", order_link)
-        return self
 
     @allure.step("Проверить, что открыта модалка заказа")
     def is_order_modal_opened(self):
@@ -39,7 +37,6 @@ class FeedPage(BasePage):
         close_btn = self.find_clickable_element(FeedPageLocators.ORDER_MODAL_CLOSE_BTN)
         self.driver.execute_script("arguments[0].click();", close_btn)
         self.wait_for_element_invisible(FeedPageLocators.ORDER_ITEM_MODAL)
-        return self
 
     @allure.step("Получить значение счётчика «Выполнено за все время»")
     def get_total_orders_done(self):

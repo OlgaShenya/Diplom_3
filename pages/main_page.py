@@ -22,34 +22,29 @@ class MainPage(BasePage):
         """Нажать кнопку 'Личный Кабинет' в хедере"""
         personal_account_btn = self.find_clickable_element(MainPageLocators.PERSONAL_ACCOUNT_BTN)
         personal_account_btn.click()
-        return self
     
     @allure.step("Дождаться загрузки главной страницы")
     def wait_for_page_load(self):
         """Дождаться загрузки главной страницы"""
         self.find_visible_element(MainPageLocators.MAIN_PAGE_TITLE)
-        return self
     
     @allure.step("Кликнуть по ссылке «Конструктор»")
     def click_constructor_link(self):
         """Кликнуть по ссылке 'Конструктор'"""
         link = self.find_clickable_element(MainPageLocators.CONSTRUCTOR_LINK)
         link.click()
-        return self
     
     @allure.step("Кликнуть по ссылке «Лента Заказов»")
     def click_feed_link(self):
         """Кликнуть по ссылке 'Лента заказов'"""
         link = self.find_clickable_element(MainPageLocators.FEED_LINK)
         link.click()
-        return self
     
     @allure.step("Кликнуть по первому ингредиенту")
     def click_first_ingredient(self):
         """Кликнуть по первому ингредиенту (откроет модалку)"""
         ingredient = self.find_clickable_element(MainPageLocators.BURGER_INGREDIENT_ITEM_FIRST)
         ingredient.click()
-        return self
     
     @allure.step("Проверить, что открыто модальное окно ингредиента")
     def is_ingredient_modal_opened(self):
@@ -62,7 +57,6 @@ class MainPage(BasePage):
         close_btn = self.find_clickable_element(MainPageLocators.BURGER_INGREDIENT_MODAL_CLOSE_BTN)
         self.driver.execute_script("arguments[0].click();", close_btn)
         self.wait_for_element_invisible(MainPageLocators.BURGER_INGREDIENT_MODAL)
-        return self
     
     @allure.step("Получить значение счётчика первого ингредиента")
     def get_first_ingredient_counter(self):
@@ -112,15 +106,12 @@ class MainPage(BasePage):
             }
             simulateDragDrop(arguments[0], arguments[1]);
         """, ingredient, basket)
-        
-        return self
     
     @allure.step("Нажать кнопку «Оформить заказ»")
     def click_order_button(self):
         """Нажать кнопку 'Оформить заказ'"""
         order_btn = self.find_clickable_element(MainPageLocators.ORDER_BUTTON)
         self.driver.execute_script("arguments[0].click();", order_btn)
-        return self
     
     @allure.step("Проверить, что открыто модальное окно успешного заказа")
     def is_order_success_modal_opened(self):
@@ -140,7 +131,6 @@ class MainPage(BasePage):
         close_btn = self.find_clickable_element(MainPageLocators.ORDER_SUCCESS_MODAL_CLOSE_BTN)
         self.driver.execute_script("arguments[0].click();", close_btn)
         self.wait_for_element_invisible(MainPageLocators.ORDER_SUCCESS_MODAL, timeout=2)
-        return self
 
     @allure.step("Закрыть модальное окно, если оно открыто")
     def ensure_no_modal(self):

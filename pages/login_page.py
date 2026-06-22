@@ -19,7 +19,6 @@ class LoginPage(BasePage):
         """Нажать кнопку 'Восстановить пароль'"""
         forgot_pwd_btn = self.find_clickable_element(LoginPageLocators.FORGOT_PASSWORD_BTN)
         self.driver.execute_script("arguments[0].click();", forgot_pwd_btn)
-        return self
 
     @allure.step("Ввести email")
     def enter_email(self, email):
@@ -27,7 +26,6 @@ class LoginPage(BasePage):
         email_field = self.find_visible_element(LoginPageLocators.EMAIL_INPUT)
         email_field.clear()
         email_field.send_keys(email)
-        return self
 
     @allure.step("Ввести пароль")
     def enter_password(self, password):
@@ -35,14 +33,12 @@ class LoginPage(BasePage):
         password_field = self.find_visible_element(LoginPageLocators.PASSWORD_INPUT)
         password_field.clear()
         password_field.send_keys(password)
-        return self
 
     @allure.step("Нажать кнопку «Войти»")
     def click_login_button(self):
         """Нажать кнопку 'Войти'"""
         login_btn = self.find_clickable_element(LoginPageLocators.LOGIN_BTN)
         login_btn.click()
-        return self
 
     @allure.step("Войти в аккаунт")
     def login(self, email, password):
@@ -51,14 +47,12 @@ class LoginPage(BasePage):
         self.enter_password(password)
         self.click_login_button()
         self.wait.until(lambda driver: "/login" not in driver.current_url)
-        return self
 
     @allure.step("Нажать кнопку показать/скрыть пароль")
     def click_toggle_password_visibility(self):
         """Нажать кнопку показать/скрыть пароль (иконка глазика)"""
         toggle_icon = self.find_clickable_element(LoginPageLocators.TOGGLE_PASSWORD_VISIBILITY_ICON)
         toggle_icon.click()
-        return self
 
     @allure.step("Проверить, что поле пароля подсвечено (активно)")
     def is_password_field_highlighted(self):

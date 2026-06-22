@@ -21,14 +21,12 @@ class PasswordRecoveryPage(BasePage):
         email_field = self.find_visible_element(PasswordRecoveryLocators.PASSWORD_RECOVERY_INPUT)
         email_field.clear()
         email_field.send_keys(email)
-        return self
     
     @allure.step("Нажать кнопку «Восстановить»")
     def click_recovery_button(self):
         """Нажать кнопку 'Восстановить'"""
         recovery_btn = self.find_clickable_element(PasswordRecoveryLocators.PASSWORD_RECOVERY_BTN)
         recovery_btn.click()
-        return self
     
     @allure.step("Получить значение поля email")
     def get_email_field_value(self):
@@ -41,4 +39,3 @@ class PasswordRecoveryPage(BasePage):
         """Полный сценарий восстановления пароля"""
         self.enter_email(email)
         self.click_recovery_button()
-        return self
